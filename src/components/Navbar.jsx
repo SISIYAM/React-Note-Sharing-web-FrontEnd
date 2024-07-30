@@ -28,12 +28,14 @@ export default function Navbar() {
             <Link className="navbar-brand" to="/">
               <img
                 className="light-mode-item navbar-brand-item"
-                src="/assets/images/logo.svg"
+                src="/assets/images/sei-logo-light.png"
+                style={{ height: "70px" }}
                 alt="Logo"
               />
               <img
                 className="dark-mode-item navbar-brand-item"
-                src="/assets/images/logo-light.svg"
+                src="/assets/images/sei-logo-dark.png"
+                style={{ height: "70px" }}
                 alt="logo"
               />
             </Link>

@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import baseUrl, { baseAssetsUrl, formatDate } from "../components/Myconst";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
@@ -95,10 +95,14 @@ function PdfDetails() {
               </button>
               <h1>{pdf.title}</h1>
               <ul className="list-inline mb-0">
-                <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
-                  <i className="fas fa-signal text-success me-2" />
-                  {`${pdf.get_material.get_university.name} | ${pdf.get_material.get_semester.semister_name}`}
-                </li>
+                <Link
+                  to={`/university/${pdf.get_material.get_university.name}`}
+                >
+                  <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
+                    <i className="fas fa-signal text-success me-2" />
+                    {`${pdf.get_material.get_university.name} | ${pdf.get_material.get_semester.semister_name}`}
+                  </li>
+                </Link>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="bi bi-patch-exclamation-fill text-danger me-2" />
                   Last updated at- {formatDate(pdf.updated_at)}

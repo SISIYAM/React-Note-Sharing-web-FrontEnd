@@ -87,14 +87,16 @@ const MaterialDetails = () => {
                 <div className="col-12">
                   <h2>{material.title}</h2>
                   <ul className="list-inline mb-0">
-                    <li className="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
-                      <i className="fas fa-signal me-2" />
-                      <b className="text-primary">
-                        {material.get_university.name +
-                          " " +
-                          material.get_semester.semister_name}
-                      </b>
-                    </li>
+                    <Link to={`/university/${material.get_university.name}`}>
+                      <li className="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                        <i className="fas fa-signal me-2" />
+                        <b className="text-primary">
+                          {material.get_university.name +
+                            " | " +
+                            material.get_semester.semister_name}
+                        </b>
+                      </li>
+                    </Link>
                     <li className="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
                       <i className="bi bi-patch-exclamation-fill me-2" />
                       Last updated: {material.updated_at}

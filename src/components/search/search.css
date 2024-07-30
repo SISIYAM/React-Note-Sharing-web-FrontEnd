@@ -1,0 +1,37 @@
+:root,
+[data-bs-theme=light] {
+  --shadow: 3px 5px 15px 0px rgba(60, 6, 94, 0.69);
+  --color: #000000;
+}
+
+[data-bs-theme=dark] {
+  --shadow: 3px 5px 15px 0px rgba(47, 222, 190, 0.3);
+  --color: #fff;
+}
+
+.searchList {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+
+.searchList li {
+  color: var(--color);
+  font-weight: 500;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  transition: background-color 0.2s ease;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 300ms ease-out;
+}
+
+.searchList li:hover {
+  transform: translate(6px, 0px) scale(1, 1.2) skew(1deg, 0deg);
+
+}
