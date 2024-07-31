@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -88,6 +89,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/about"
                     >
                       About us
@@ -96,6 +98,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/contact"
                     >
                       Contact us
@@ -104,6 +107,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/category?id=1"
                     >
                       Website Design and Development
@@ -112,6 +116,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/category?id=2"
                     >
                       Graphics Design
@@ -120,6 +125,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/category?id=3"
                     >
                       Programming and Technology
@@ -128,6 +134,7 @@ export default function Footer() {
                   <li className="nav-item">
                     <a
                       className="nav-link"
+                      target="_blank"
                       href="https://seiinnovations.com/category?id=14"
                     >
                       Digital Marketing
@@ -140,24 +147,19 @@ export default function Footer() {
                 <h5 className="mb-2 mb-md-4 text-white">Community</h5>
                 <ul className="nav flex-column text-primary-hover">
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Documentation
-                    </a>
+                    <Link className="nav-link" to="">
+                      Request For Materials
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Faq
-                    </a>
+                    <Link className="nav-link" to="">
+                      Give Feedback
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Forum
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#">
-                      Sitemap
-                    </a>
+                    <Link className="nav-link" to="">
+                      Report
+                    </Link>
                   </li>
                 </ul>
               </div>

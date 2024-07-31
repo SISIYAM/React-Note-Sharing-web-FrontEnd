@@ -1,10 +1,9 @@
-// 
+//
 // dark-mode.scss
 // Theme Component
 // Dark mode related CSS
 
 [data-bs-theme="dark"] {
-
   //Dark mode styles
   --bs-light: #2a2c31;
   --bs-dark: #0f0f10;
@@ -46,7 +45,7 @@
     --bs-dropdown-bg: var(--#{$prefix}dark);
     --bs-dropdown-link-disabled-color: var(--#{$prefix}gray-200);
     box-shadow: none;
-    --bs-dropdown-divider-bg:var(--#{$prefix}body-bg);
+    --bs-dropdown-divider-bg: var(--#{$prefix}body-bg);
   }
 
   .dropdown-menu:before {
@@ -60,7 +59,6 @@
   }
 
   .btn-white {
-
     &.active,
     &:active,
     &:focus,
@@ -120,7 +118,7 @@
   }
 
   .border-light {
-    border-color: var(--#{$prefix}light) !important
+    border-color: var(--#{$prefix}light) !important;
   }
 
   .bg-body {
@@ -133,7 +131,7 @@
     box-shadow: none !important;
   }
 
-  .navbar-nav .dropdown .dropdown-submenu:hover>.dropdown-menu {
+  .navbar-nav .dropdown .dropdown-submenu:hover > .dropdown-menu {
     box-shadow: none;
   }
 
@@ -159,7 +157,7 @@
       background: var(--#{$prefix}dark);
     }
 
-    &[data-type*=select-one] .choices__input {
+    &[data-type*="select-one"] .choices__input {
       background: var(--#{$prefix}dark);
     }
   }
