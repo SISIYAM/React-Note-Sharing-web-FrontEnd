@@ -11,7 +11,7 @@ function GoogleDriveDownload(driveLink) {
     const downloadLink = getDownloadLink(driveLink);
     const link = document.createElement("a");
     link.href = downloadLink;
-    link.setAttribute("download", "file"); // You can set a filename here
+    link.setAttribute("download", "file");
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);

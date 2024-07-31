@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { ThemeContext } from "../ThemeContext";
+import { ThemeContext } from "../hooks/ThemeContext";
 import useStickyHeader from "../hooks/useStickyHeader";
 import useStickyBar from "../hooks/useStickyBar";
 import { Link } from "react-router-dom";
