@@ -8,7 +8,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <main style={{ marginTop: "80px" }}>
+      <main style={{ marginTop: "100px" }}>
         <Outlet />
       </main>
       <Footer />

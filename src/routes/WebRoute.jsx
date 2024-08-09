@@ -13,6 +13,7 @@ import UniversityDetails from "../pages/UniversityDetails";
 import MaterialDetails from "../pages/MaterialDetails";
 import Error from "../components/Error";
 import PdfDetails from "../pages/PdfDetails";
+import Faculties from "../components/faculties/Faculties";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
           path=":universityName/:semester/:material/:slug"
           element={<PdfDetails />}
         />
+        <Route path="bsmraau/faculties" element={<Faculties />} />
       </Route>
 
       <Route path="*" element={<Error />} />

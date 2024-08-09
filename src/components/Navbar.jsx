@@ -22,6 +22,7 @@ export default function Navbar() {
             data-sticky
             ref={stickyBarRef}
             className="container-fluid px-3 px-xl-5 bg-light navBarBg"
+            style={{ border: "1px solid red" }}
           >
             {/* Logo START */}
 
@@ -65,7 +66,11 @@ export default function Navbar() {
                     Home
                   </Link>
                 </li>
-
+                <li className="nav-item">
+                  <Link className="nav-link" to="/university/bsmraau/faculties">
+                    Faculties
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/about">
                     About
@@ -74,7 +79,7 @@ export default function Navbar() {
               </ul>
 
               <div className="nav my-3 my-xl-0 px-4 flex-nowrap align-items-center">
-                <div className="nav-item w-100">
+                {/* <div className="nav-item w-100">
                   <form className="position-relative">
                     <input
                       className="form-control pe-5 bg-transparent"
@@ -89,7 +94,7 @@ export default function Navbar() {
                       <i className="fas fa-search fs-6 " />
                     </button>
                   </form>
-                </div>
+                </div> */}
                 <li className="nav-item mx-2 mb-2">
                   <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
                     <button
