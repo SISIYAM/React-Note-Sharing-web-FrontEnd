@@ -22,7 +22,6 @@ export default function Navbar() {
             data-sticky
             ref={stickyBarRef}
             className="container-fluid px-3 px-xl-5 bg-light navBarBg"
-            style={{ border: "1px solid red" }}
           >
             {/* Logo START */}
 
@@ -74,6 +73,11 @@ export default function Navbar() {
                 <li className="nav-item">
                   <Link className="nav-link" to="/about">
                     About
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/request/material">
+                    Request for material
                   </Link>
                 </li>
               </ul>

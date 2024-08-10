@@ -147,7 +147,7 @@ export default function Footer() {
                 <h5 className="mb-2 mb-md-4 text-white">Community</h5>
                 <ul className="nav flex-column text-primary-hover">
                   <li className="nav-item">
-                    <Link className="nav-link" to="">
+                    <Link className="nav-link" to="/request/material">
                       Request For Materials
                     </Link>
                   </li>

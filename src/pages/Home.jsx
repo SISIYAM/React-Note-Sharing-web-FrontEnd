@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Universities from "../components/Universities";
 import TopContent from "../components/home/TopContent";
 import BottomContent from "../components/home/BottomContent";
 
 function Home() {
+  useEffect(() => {
+    // scroll to top
+    window.scrollTo(0, 0);
+  }, []);
   const topContentData = {
     title: `Elevate Your Learning: Find and Download Semester PDFs from
     BSMRAAU and Other Universities`,

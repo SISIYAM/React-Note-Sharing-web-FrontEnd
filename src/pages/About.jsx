@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 function About() {
+  useEffect(() => {
+    // scroll to top
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <section style={{ marginTop: "70px" }}>

@@ -28,6 +28,9 @@ const MaterialDetails = () => {
         setError(error.response.data.message);
         setLoading(false);
       });
+
+    // scroll to top
+    window.scrollTo(0, 0);
   }, []);
 
   const handleDownload = (pdfUrl, pdfSlug) => {

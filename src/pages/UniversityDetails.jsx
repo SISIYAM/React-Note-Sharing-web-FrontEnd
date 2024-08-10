@@ -40,6 +40,8 @@ function UniversityDetails() {
           }
         }
       });
+
+    window.scrollTo(0, 0);
   }, []);
 
   if (loading) {
@@ -122,6 +124,7 @@ function UniversityDetails() {
                         Materials
                       </button>
                     </li>
+
                     {/* Tab item */}
                   </ul>
                 </div>
@@ -260,7 +263,6 @@ function UniversityDetails() {
                       />
                     </div>
                   </div>
-                  {/* Video END */}
 
                   {/* Course info START */}
                   <div className="card card-body shadow p-4 mb-4">
@@ -295,6 +297,14 @@ function UniversityDetails() {
                         <span>{university.author}</span>
                       </li>
                     </ul>
+                    <Link to="/request/material">
+                      <button
+                        className="btn btn-success mt-2"
+                        style={{ width: "100%" }}
+                      >
+                        Request For Material
+                      </button>
+                    </Link>
                   </div>
                   {/* Course info END */}
                 </div>

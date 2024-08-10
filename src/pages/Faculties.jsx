@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import Banner from "./Banner";
-import Card from "./Card";
+import Banner from "../components/faculties/Banner";
+import Card from "../components/faculties/Card";
 import axios from "axios";
-import baseUrl from "../Myconst";
-import Loading from "../Loading";
+import baseUrl from "../components/Myconst";
+import Loading from "../components/Loading";
 
 function Faculties() {
   const [faculties, setFaculties] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     fetchFaculties();
+
+    // scroll to top
+    window.scrollTo(0, 0);
   }, []);
 
   const fetchFaculties = async () => {
