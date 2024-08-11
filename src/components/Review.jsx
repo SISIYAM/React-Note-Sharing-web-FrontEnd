@@ -1,18 +1,131 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Star from "./star/Star";
+import axios from "axios";
+import baseUrl, { timeAgo } from "./Myconst";
+import { toast } from "react-toastify";
+import ActiveStar from "./star/ActiveStar";
 
-function Review() {
+function Review(props) {
+  const [reviews, setReviews] = useState([]);
   const [rating, setRating] = useState(0);
   const [isOn, setIsOn] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [avgRating, setAvgRating] = useState(0);
+
   const handleRatingChange = (newRating) => {
     setRating(newRating);
   };
-  console.log(rating);
 
   const handleChange = () => {
     setIsOn(!isOn);
   };
 
+  // handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSending(true);
+
+    const body = {
+      rating: rating,
+      pdf_id: props.pdfId,
+      name: isOn ? "Anonymous Student" : e.target.name.value,
+      department: e.target.department.value,
+      batch: e.target.batch.value,
+      review: e.target.review.value,
+    };
+
+    try {
+      const response = await axios.post(
+        `${baseUrl}/request/material/pdf/review`,
+        body
+      );
+
+      if (response.data.status === 200) {
+        toast.success(response.data.message);
+        // add the new review to the end of the list
+        setReviews((prevReviews) =>
+          [...prevReviews, body].sort(
+            (a, b) => new Date(b.created_at) - new Date(a.created_at)
+          )
+        );
+        e.target.reset(); // reset form fields
+      }
+    } catch (error) {
+      console.log(error.response.data.errors);
+      if (error.response.data.status === 422) {
+        const errors = error.response.data.errors;
+        for (const key in errors) {
+          if (errors[key]) {
+            toast.error(errors[key][0]);
+          }
+        }
+      }
+    } finally {
+      setSending(false);
+    }
+  };
+
+  useEffect(() => {
+    const body = {
+      pdf_id: props.pdfId,
+    };
+    handleFetchReviews(body);
+  }, [reviews]);
+
+  const handleFetchReviews = async (body) => {
+    try {
+      const response = await axios.post(
+        `${baseUrl}/request/material/pdf/review/all`,
+        body
+      );
+
+      if (response.data.status === 200) {
+        const sortedReviews = response.data.review.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
+        );
+        setReviews(sortedReviews);
+      }
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 10;
+
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber < 1 || pageNumber > totalPages) return;
+    setCurrentPage(pageNumber);
+  };
+
+  const totalPages = Math.ceil(reviews.length / reviewsPerPage);
+
+  const handleSending = () => (
+    <button className="btn btn-success" type="button" disabled>
+      <span
+        className="spinner-border spinner-border-sm mx-2"
+        role="status"
+        aria-hidden="true"
+      />
+      Sending...
+    </button>
+  );
+
+  // calculate average rating
+
+  useEffect(() => {
+    if (reviews.length === 0) return;
+    // collect ratings
+    const ratings = reviews.map((res) => Number(res.rating));
+    // calculate average rating
+    const average =
+      ratings.reduce((acc, rating) => acc + rating, 0) / ratings.length;
+    setAvgRating(average);
+  }, [reviews]); // depend on reviews so it updates when reviews change
   return (
     <div
       className="tab-pane fade"
@@ -20,112 +133,83 @@ function Review() {
       role="tabpanel"
       aria-labelledby="course-pills-tab-4"
     >
-      {/* Add review details here */}
       <div className="row mb-4">
-        <h5 className="mb-4">Our Student Reviews</h5>
+        <h5 className="mb-4">Reviews</h5>
         <div className="col-md-4 mb-3 mb-md-0">
           <div className="text-center">
-            <h2 className="mb-0">4.5</h2>
+            <h2 className="mb-0">{avgRating.toFixed(1)}/5</h2>
             <ul className="list-inline mb-0">
               <li className="list-inline-item me-0">
                 <i className="fas fa-star text-warning" />
               </li>
-              <li className="list-inline-item me-0">
-                <i className="fas fa-star text-warning" />
-              </li>
-              <li className="list-inline-item me-0">
-                <i className="fas fa-star text-warning" />
-              </li>
-              <li className="list-inline-item me-0">
-                <i className="fas fa-star text-warning" />
-              </li>
-              <li className="list-inline-item me-0">
-                <i className="fas fa-star-half-alt text-warning" />
-              </li>
             </ul>
-            <p className="mb-0">(Based on today’s review)</p>
           </div>
         </div>
-        {/* Add review progress here */}
       </div>
       <div className="row">
-        {/* Add individual reviews here */}
-        <div className="d-md-flex my-4">
-          <div className="avatar avatar-xl me-4 flex-shrink-0">
-            <img
-              className="avatar-img rounded-circle"
-              src="assets/images/avatar/09.jpg"
-              alt="avatar"
-            />
-          </div>
-          <div>
-            <div className="d-sm-flex mt-1 mt-md-0 align-items-center">
-              <h5 className="me-3 mb-0">Jacqueline Miller</h5>
-              <ul className="list-inline mb-0">
-                <li className="list-inline-item me-0">
-                  <i className="fas fa-star text-warning" />
-                </li>
-                <li className="list-inline-item me-0">
-                  <i className="fas fa-star text-warning" />
-                </li>
-                <li className="list-inline-item me-0">
-                  <i className="fas fa-star text-warning" />
-                </li>
-                <li className="list-inline-item me-0">
-                  <i className="fas fa-star text-warning" />
-                </li>
-                <li className="list-inline-item me-0">
-                  <i className="far fa-star text-warning" />
-                </li>
-              </ul>
+        {currentReviews.map((res, index) => (
+          <>
+            <div key={index} className="d-md-flex my-4 p-3 bg-light rounded">
+              <div>
+                <div className="d-sm-flex mt-1 mt-md-0 align-items-center">
+                  <h5 className="me-3 mb-0">{res.name}</h5>
+
+                  <ActiveStar rating={res.rating} />
+                </div>
+                <p className="small mb-2">{timeAgo(res.created_at)}</p>
+                <p className="mb-2 reviewField">{res.review}</p>
+              </div>
             </div>
-            <p className="small mb-2">2 days ago</p>
-            <p className="mb-2">
-              Perceived end knowledge certainly day sweetness why cordially. Ask
-              a quick six seven offer see among. Handsome met debating sir
-              dwelling age material. As style lived he worse dried. Offered
-              related so visitors we private removed. Moderate do subjects to
-              distance.
-            </p>
-            <div
-              className="btn-group"
-              role="group"
-              aria-label="Basic radio toggle button group"
-            >
-              <input
-                type="radio"
-                className="btn-check"
-                name="btnradio"
-                id="btnradio1"
-              />
-              <label
-                className="btn btn-outline-light btn-sm mb-0"
-                htmlFor="btnradio1"
+            <hr />
+          </>
+        ))}
+        <nav
+          className="mt-4 d-flex justify-content-center"
+          aria-label="navigation"
+        >
+          <ul className="pagination pagination-primary-soft rounded mb-0">
+            <li className="page-item mb-0">
+              <a
+                className="page-link"
+                href="#"
+                onClick={() => handlePageChange(currentPage - 1)}
+                aria-disabled={currentPage === 1}
               >
-                <i className="far fa-thumbs-up me-1" />
-                25
-              </label>
-              <input
-                type="radio"
-                className="btn-check"
-                name="btnradio"
-                id="btnradio2"
-              />
-              <label
-                className="btn btn-outline-light btn-sm mb-0"
-                htmlFor="btnradio2"
+                <i className="fas fa-angle-double-left"></i>
+              </a>
+            </li>
+            {[...Array(totalPages)].map((_, index) => (
+              <li
+                key={index}
+                className={`page-item mb-0 ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
               >
-                <i className="far fa-thumbs-down me-1" />2
-              </label>
-            </div>
-          </div>
-        </div>
-        <hr />
-        {/* Add more reviews here */}
+                <a
+                  className="page-link"
+                  href="#"
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </a>
+              </li>
+            ))}
+            <li className="page-item mb-0">
+              <a
+                className="page-link"
+                href="#"
+                onClick={() => handlePageChange(currentPage + 1)}
+                aria-disabled={currentPage === totalPages}
+              >
+                <i className="fas fa-angle-double-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
       <div className="mt-2">
         <h5 className="mb-4">Leave a Review</h5>
-        <form className="row g-3">
+        <form onSubmit={handleSubmit} className="row g-3">
           <div className="col-md-6 bg-light-input">
             <Star onChangeRating={handleRatingChange} />
           </div>
@@ -177,6 +261,7 @@ function Review() {
             </>
           ) : (
             <>
+              <input type="hidden" value="Anonymous Student" name="name" />
               <div className="col-md-6 bg-light-input">
                 <input
                   type="text"
@@ -206,9 +291,13 @@ function Review() {
             />
           </div>
           <div className="col-12">
-            <button type="submit" className="btn btn-primary px-4">
-              Submit Review
-            </button>
+            {sending ? (
+              handleSending()
+            ) : (
+              <button type="submit" className="btn btn-primary px-4">
+                Submit Review
+              </button>
+            )}
           </div>
         </form>
       </div>

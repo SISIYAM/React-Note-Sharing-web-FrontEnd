@@ -192,7 +192,7 @@ function PdfDetails() {
                       )}
                     </div>
                     {/*Review component*/}
-                    <Review />
+                    <Review pdfId={pdf.id} />
                   </div>
                 </div>
               </div>
