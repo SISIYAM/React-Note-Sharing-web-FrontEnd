@@ -7,6 +7,7 @@ import Error from "../components/Error";
 import GoogleDriveDownload from "../components/GoogleDriveDownload ";
 import PdfView from "../components/PdfView";
 import Review from "../components/Review";
+import RenderPdfFile from "../components/RenderPdfFile";
 
 function PdfDetails() {
   const params = useParams();
@@ -177,12 +178,15 @@ function PdfDetails() {
                         downloadLoadingState[pdf.slug] ? (
                           downloadLoading()
                         ) : (
-                          <button
-                            onClick={() => handleDownload(pdf.pdf, pdf.slug)}
-                            className="btn btn-sm btn-success mb-2"
-                          >
-                            Download
-                          </button>
+                          <>
+                            <button
+                              onClick={() => handleDownload(pdf.pdf, pdf.slug)}
+                              className="btn btn-sm btn-success mb-2"
+                            >
+                              Download
+                            </button>
+                            <RenderPdfFile pdf_link={pdf.pdf} />
+                          </>
                         )
                       ) : (
                         <div>

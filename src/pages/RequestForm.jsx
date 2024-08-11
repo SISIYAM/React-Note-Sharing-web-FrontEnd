@@ -16,20 +16,11 @@ function RequestForm() {
       console.log(error.response.data.errors);
       setSending(false);
       if (error.response.data.status == 422) {
-        if (error.response.data.errors.name) {
-          toast.error(error.response.data.errors.name[0]);
-        }
-        if (error.response.data.errors.department) {
-          toast.error(error.response.data.errors.department[0]);
-        }
-        if (error.response.data.errors.batch) {
-          toast.error(error.response.data.errors.batch[0]);
-        }
-        if (error.response.data.errors.roll) {
-          toast.error(error.response.data.errors.roll[0]);
-        }
-        if (error.response.data.errors.note) {
-          toast.error(error.response.data.errors.note[0]);
+        const errors = error.response.data.errors;
+        for (const key in errors) {
+          if (errors[key]) {
+            toast.error(errors[key][0]);
+          }
         }
       }
     }
@@ -46,6 +37,7 @@ function RequestForm() {
       note: e.target.note.value,
     };
     handleApi(body);
+    e.target.reset();
   };
 
   const handleSending = () => (

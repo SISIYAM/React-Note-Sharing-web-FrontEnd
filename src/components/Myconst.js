@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
-const baseUrl = `http://localhost:8000/api`;
-const baseAssetsUrl = `http://localhost:8000/storage/`;
+const baseUrl = `http://server.notes.seiinnovations.com/api`;
+const baseAssetsUrl = `http://server.notes.seiinnovations.com/storage/`;
 
 // format timestamp
 const formatDate = (dateString) => {

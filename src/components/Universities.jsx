@@ -4,7 +4,7 @@ import Loading from "./Loading";
 import { Link } from "react-router-dom";
 
 // import server url from myConst.js module
-import serverUrl from "../components/Myconst";
+import serverUrl, { baseAssetsUrl } from "../components/Myconst";
 
 const Universities = () => {
   const [universities, setUniversities] = useState([]);
@@ -40,7 +40,7 @@ const Universities = () => {
       <div className="col-sm-6 col-lg-4 col-xl-3" key={university.slug}>
         <div className="card card-metro overflow-hidden rounded-3">
           <img
-            src={`http://localhost:8000/storage/${
+            src={`${baseAssetsUrl}${
               university.image ?? "images/default-image.jpg"
             }`}
             alt="universityLogo"
