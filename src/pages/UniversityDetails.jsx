@@ -5,11 +5,14 @@ import { Link, useParams } from "react-router-dom";
 
 // Import server URL and utility functions
 import serverUrl, { baseAssetsUrl, formatDate } from "../components/Myconst";
+import Error from "../components/Error";
 
 function UniversityDetails() {
   const [university, setUniversity] = useState({});
   const [department, setDepartment] = useState({});
   const [loading, setLoading] = useState(true);
+  const [found, setFound] = useState(true);
+  const [message, setMessage] = useState();
 
   const params = useParams();
 
@@ -22,24 +25,23 @@ function UniversityDetails() {
     axios
       .post(`${serverUrl}/request/fetch/university/departments`, body)
       .then((res) => {
-        const universityData = res.data.select;
-        const departmentData = res.data.department;
+        if (res.data.status) {
+          const universityData = res.data.select;
+          const departmentData = res.data.department;
 
-        setUniversity(universityData);
-        setDepartment(departmentData);
-
+          setUniversity(universityData);
+          setDepartment(departmentData);
+          setFound(true);
+        } else {
+          setFound(false);
+        }
         setLoading(false);
       })
       .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            alert(error.response.data.message);
-          } else if (error.response.status === 500) {
-            alert("Server Error");
-          }
-        } else {
-          console.error("Axios error:", error);
-        }
+        setLoading(false);
+        setFound(false);
+        setMessage(error.response.data.message);
+        console.log(error.response.data);
       });
 
     window.scrollTo(0, 0);
@@ -57,7 +59,7 @@ function UniversityDetails() {
     });
   }
 
-  return (
+  return found ? (
     <div>
       <section className="bg-light py-0 py-sm-5">
         <div className="container">
@@ -290,6 +292,8 @@ function UniversityDetails() {
         </div>
       </section>
     </div>
+  ) : (
+    <Error message={message} />
   );
 }
 
