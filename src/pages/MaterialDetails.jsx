@@ -94,9 +94,7 @@ const MaterialDetails = () => {
                       <li className="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
                         <i className="fas fa-signal me-2" />
                         <b className="text-primary">
-                          {material.get_university.name +
-                            " | " +
-                            material.get_semester.semister_name}
+                          {`${material.get_university.name} | ${material.get_semester.get_department.department} | ${material.get_semester.semister_name}`}
                         </b>
                       </li>
                     </Link>
@@ -139,49 +137,55 @@ const MaterialDetails = () => {
                     <div className="card-body">
                       <div className="row g-5">
                         <div className="col-12">
-                          {material.get_pdf.map((pdf, pdfIndex) => (
-                            <div key={pdf.slug}>
-                              <div className="d-sm-flex justify-content-sm-between align-items-center">
-                                <div className="d-flex">
-                                  <Link
-                                    to={`/university/${material.get_university.slug}/${material.get_semester.semister_name}/${material.slug}/${pdf.slug}`}
-                                  >
-                                    <button
-                                      className="btn btn-danger-soft btn-round mt-1"
-                                      disabled={downloadLoadingState[pdf.slug]}
+                          {material.get_pdf.length > 0 ? (
+                            material.get_pdf.map((pdf, pdfIndex) => (
+                              <div key={pdf.slug}>
+                                <div className="d-sm-flex justify-content-sm-between align-items-center">
+                                  <div className="d-flex">
+                                    <Link
+                                      to={`/university/${material.get_university.slug}/${material.get_semester.semister_name}/${material.slug}/${pdf.slug}`}
                                     >
-                                      <i className="fas fa-play" />
-                                    </button>
-                                  </Link>
-
-                                  <div className="my-2 mx-3">
-                                    <h5 className="mb-1">
-                                      <Link
-                                        to={`/university/${material.get_university.slug}/${material.get_semester.semister_name}/${material.slug}/${pdf.slug}`}
+                                      <button
+                                        className="btn btn-danger-soft btn-round mt-1"
+                                        disabled={
+                                          downloadLoadingState[pdf.slug]
+                                        }
                                       >
-                                        {pdf.title
-                                          ? pdf.title
-                                          : "Pdf- " + (pdfIndex + 1)}
-                                      </Link>
-                                    </h5>
+                                        <i className="fas fa-play" />
+                                      </button>
+                                    </Link>
+
+                                    <div className="my-2 mx-3">
+                                      <h5 className="mb-1">
+                                        <Link
+                                          to={`/university/${material.get_university.slug}/${material.get_semester.semister_name}/${material.slug}/${pdf.slug}`}
+                                        >
+                                          {pdf.title
+                                            ? pdf.title
+                                            : "Pdf- " + (pdfIndex + 1)}
+                                        </Link>
+                                      </h5>
+                                    </div>
                                   </div>
+                                  {downloadLoadingState[pdf.slug] ? (
+                                    downloadLoading()
+                                  ) : (
+                                    <button
+                                      onClick={() =>
+                                        handleDownload(pdf.pdf, pdf.slug)
+                                      }
+                                      className="btn btn-sm btn-success mb-0"
+                                    >
+                                      Download
+                                    </button>
+                                  )}
                                 </div>
-                                {downloadLoadingState[pdf.slug] ? (
-                                  downloadLoading()
-                                ) : (
-                                  <button
-                                    onClick={() =>
-                                      handleDownload(pdf.pdf, pdf.slug)
-                                    }
-                                    className="btn btn-sm btn-success mb-0"
-                                  >
-                                    Download
-                                  </button>
-                                )}
+                                <hr />
                               </div>
-                              <hr />
-                            </div>
-                          ))}
+                            ))
+                          ) : (
+                            <p className="alert alert-danger">Not found!</p>
+                          )}
                         </div>
                       </div>
                     </div>

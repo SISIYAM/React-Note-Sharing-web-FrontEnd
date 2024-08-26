@@ -66,7 +66,7 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/university/bsmraau/faculties">
+                  <Link className="nav-link" to="/faculties">
                     Faculties
                   </Link>
                 </li>

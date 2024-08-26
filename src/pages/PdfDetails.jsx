@@ -105,7 +105,7 @@ function PdfDetails() {
                 >
                   <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                     <i className="fas fa-signal text-success me-2" />
-                    {`${pdf.get_material.get_university.name} | ${pdf.get_material.get_semester.semister_name}`}
+                    {`${pdf.get_material.get_university.name} | ${pdf.get_material.get_semester.get_department.department} | ${pdf.get_material.get_semester.semister_name}`}
                   </li>
                 </Link>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
