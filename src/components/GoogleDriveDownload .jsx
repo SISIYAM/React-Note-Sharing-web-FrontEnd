@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 
-function GoogleDriveDownload(driveLink) {
-  // Function to convert view link to direct download link
+function GoogleDriveDownload({ driveLink }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const getDownloadLink = (link) => {
-    const fileId = link.driveLink.split("/d/")[1].split("/")[0];
+    const fileId = link.split("/d/")[1].split("/")[0];
     return `https://drive.google.com/uc?export=download&id=${fileId}`;
   };
 
   const handleDownload = () => {
+    setIsLoading(true);
     const downloadLink = getDownloadLink(driveLink);
     const link = document.createElement("a");
     link.href = downloadLink;
@@ -15,13 +17,30 @@ function GoogleDriveDownload(driveLink) {
     document.body.appendChild(link);
     link.click();
     link.parentNode.removeChild(link);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 5000);
   };
 
   return (
     <div>
-      <button className="btn btn-sm btn-success mb-2" onClick={handleDownload}>
-        Download PDF
-      </button>
+      {isLoading ? (
+        <button className="btn btn-sm btn-danger mb-2" type="button" disabled>
+          <span
+            className="spinner-border spinner-border-sm mx-2"
+            role="status"
+            aria-hidden="true"
+          />
+          Downloading...
+        </button>
+      ) : (
+        <button
+          className="btn btn-sm btn-success mb-2"
+          onClick={handleDownload}
+        >
+          Download PDF
+        </button>
+      )}
     </div>
   );
 }

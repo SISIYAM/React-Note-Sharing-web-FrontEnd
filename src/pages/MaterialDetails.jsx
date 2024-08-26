@@ -3,9 +3,10 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 // Import server URL from myConst.js module
-import serverUrl, { baseAssetsUrl } from "../components/Myconst";
+import serverUrl, { baseAssetsUrl, formatDate } from "../components/Myconst";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
+import GoogleDriveDownload from "../components/GoogleDriveDownload ";
 
 const MaterialDetails = () => {
   const params = useParams();
@@ -100,7 +101,7 @@ const MaterialDetails = () => {
                     </Link>
                     <li className="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
                       <i className="bi bi-patch-exclamation-fill me-2" />
-                      Last updated: {material.updated_at}
+                      Last updated: {formatDate(material.updated_at)}
                     </li>
                     <li className="list-inline-item fw-light h6">
                       <i className="fas fa-globe me-2" />
@@ -167,17 +168,21 @@ const MaterialDetails = () => {
                                       </h5>
                                     </div>
                                   </div>
-                                  {downloadLoadingState[pdf.slug] ? (
-                                    downloadLoading()
+                                  {pdf.type == 1 ? (
+                                    downloadLoadingState[pdf.slug] ? (
+                                      downloadLoading()
+                                    ) : (
+                                      <button
+                                        onClick={() =>
+                                          handleDownload(pdf.pdf, pdf.slug)
+                                        }
+                                        className="btn btn-sm btn-success mb-0"
+                                      >
+                                        Download
+                                      </button>
+                                    )
                                   ) : (
-                                    <button
-                                      onClick={() =>
-                                        handleDownload(pdf.pdf, pdf.slug)
-                                      }
-                                      className="btn btn-sm btn-success mb-0"
-                                    >
-                                      Download
-                                    </button>
+                                    <GoogleDriveDownload driveLink={pdf.pdf} />
                                   )}
                                 </div>
                                 <hr />
