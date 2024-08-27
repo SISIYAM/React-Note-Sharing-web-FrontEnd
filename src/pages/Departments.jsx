@@ -5,12 +5,14 @@ import { Link, useParams } from "react-router-dom";
 
 // import server url from myConst.js module
 import serverUrl, { baseAssetsUrl, formatDate } from "../components/Myconst";
+import Error from "../components/Error";
 
 function Departments() {
   const [university, setUniversity] = useState([]);
   const [loading, setLoading] = useState(true);
   const [department, setDepartment] = useState([]);
-  const [hover, setHover] = useState(false);
+  const [found, setFound] = useState(true);
+  const [message, setMessage] = useState();
 
   const params = useParams();
 
@@ -18,22 +20,22 @@ function Departments() {
     axios
       .get(`${serverUrl}/request/fetch/university/details/${params.slug}`)
       .then((res) => {
-        const universityData = res.data.select;
-        setUniversity(universityData);
-        setDepartment(res.data.department);
+        if (res.data.status) {
+          const universityData = res.data.select;
+          setUniversity(universityData);
+          setDepartment(res.data.department);
+        } else {
+          setFound(false);
+        }
 
         // stop loading
         setLoading(false);
       })
       .catch((error) => {
-        if (error.response) {
-          if (error.response.status === 404) {
-            alert(error.response.data.message);
-          }
-          if (error.response.status === 500) {
-            alert(error.response.data.message);
-          }
-        }
+        setFound(false);
+        setMessage(error.response.data.message);
+        setLoading(false);
+        console.log(error.response.data.message);
       });
 
     window.scrollTo(0, 0);
@@ -52,7 +54,7 @@ function Departments() {
     });
   });
 
-  return (
+  return found ? (
     <div>
       <section className="bg-light py-0 py-sm-5">
         <div className="container">
@@ -283,6 +285,8 @@ function Departments() {
         </div>
       </section>
     </div>
+  ) : (
+    <Error message={message} />
   );
 }
 

@@ -26,7 +26,7 @@ function Search(props) {
       ]);
       return;
     }
-    console.log(results);
+
     const fetchResults = async () => {
       setLoading(true);
       try {
@@ -36,7 +36,6 @@ function Search(props) {
 
         if (response.data.status) {
           setResults(response.data.search);
-          console.log(response.data.search);
         } else {
           setResults([
             {
@@ -51,7 +50,6 @@ function Search(props) {
               get_pdf: {},
             },
           ]);
-          console.log(response.data.message);
         }
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -63,23 +61,27 @@ function Search(props) {
     fetchResults();
   }, [props.searchInput]);
 
-  console.log(props.searchInput);
   return (
     <ul className="list-group mt-3 bg-light searchList">
       {loading && <Loader />}
-      {results.map((result) => (
+      {results.map((result, index) => (
         <Link
-          to={`/university/${result.get_university.slug}/${result.get_semester.semister_name}/${result.slug}`}
+          key={index}
+          to={`/university/${result.get_university?.slug || ""}/${
+            result.get_semester?.semister_name || ""
+          }/${result.slug || ""}`}
         >
-          <li key={result.id} className="list-group-item">
+          <li className="list-group-item">
             {result.title}{" "}
             <sub>
-              {result.get_university.name
-                ? `${result.get_university.name} | ${result.get_semester.semister_name} `
+              {result.get_university?.name
+                ? `${result.get_university.name} | ${
+                    result.get_semester.get_department?.department
+                  } | ${result.get_semester?.semister_name || ""} `
                 : " "}
 
               <span className="text-success">
-                {result.get_pdf.length
+                {result.get_pdf?.length
                   ? `| ${result.get_pdf.length} pdfs found !`
                   : ""}
               </span>
