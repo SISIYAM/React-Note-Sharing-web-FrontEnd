@@ -4,6 +4,9 @@ function GoogleDriveDownload({ driveLink }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const getDownloadLink = (link) => {
+    if (!link.includes("drive.google.com")) {
+      return "The provided link is not a valid Google Drive link.";
+    }
     const fileId = link.split("/d/")[1].split("/")[0];
     return `https://drive.google.com/uc?export=download&id=${fileId}`;
   };
