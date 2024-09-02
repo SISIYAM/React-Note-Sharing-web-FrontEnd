@@ -5,24 +5,32 @@ function GoogleDriveDownload({ driveLink }) {
 
   const getDownloadLink = (link) => {
     if (!link.includes("drive.google.com")) {
-      return "The provided link is not a valid Google Drive link.";
+      return false;
     }
-    const fileId = link.split("/d/")[1].split("/")[0];
-    return `https://drive.google.com/uc?export=download&id=${fileId}`;
+    const fileId = link.split("/d/")[1]?.split("/")[0];
+    return fileId
+      ? `https://drive.google.com/uc?export=download&id=${fileId}`
+      : false;
   };
 
   const handleDownload = () => {
-    setIsLoading(true);
     const downloadLink = getDownloadLink(driveLink);
-    const link = document.createElement("a");
-    link.href = downloadLink;
-    link.setAttribute("download", "file");
-    document.body.appendChild(link);
-    link.click();
-    link.parentNode.removeChild(link);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
+
+    if (downloadLink) {
+      setIsLoading(true);
+      const link = document.createElement("a");
+      link.href = downloadLink;
+      link.setAttribute("download", "file");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+    } else {
+      alert("This download link is not valid.");
+    }
   };
 
   return (
