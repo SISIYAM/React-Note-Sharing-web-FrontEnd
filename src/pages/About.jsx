@@ -49,10 +49,7 @@ function About() {
                 </svg>
               </figure>
               {/* Title */}
-              <h1 className="position-relative fs-2">
-                Eduport education theme, built specifically for the education
-                centers which is dedicated to teaching and involve learners.
-              </h1>
+              <h1 className="position-relative fs-2">SEI Notes</h1>
             </div>
             {/* Title and SVG END */}
           </div>
