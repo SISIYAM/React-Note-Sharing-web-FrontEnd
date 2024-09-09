@@ -15,7 +15,7 @@ function Home() {
     from BSMRAAU and other universities. Dive into aeronautical
     engineering, avionics, and more. All resources are developed and
     presented by the Aeronautical Engineering Avionics 3rd Batch.`,
-    imageUrl: "/assets/images/element/04.svg",
+    imageUrl: "/assets/images/aeAvioDeptImg.jpg",
     ytLink: "https://youtu.be/o0lcpDvPoP0?si=vwK9SWKaaqSyV6p8",
   };
   return (
