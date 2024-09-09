@@ -10,9 +10,9 @@ function Home() {
   }, []);
   const topContentData = {
     title: `Elevate Your Learning: Find and Download Semester PDFs from
-    BSMRAAU and Other Universities`,
+    BAAU and Other Universities`,
     description: `Get inspired and explore new opportunities. Access semester PDFs
-    from BSMRAAU and other universities. Dive into aeronautical
+    from BAAU and other universities. Dive into aeronautical
     engineering, avionics, and more. All resources are developed and
     presented by the Aeronautical Engineering Avionics 3rd Batch.`,
     imageUrl: "/assets/images/aeAvioDeptImg.jpg",

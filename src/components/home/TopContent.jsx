@@ -93,19 +93,6 @@ function TopContent(props) {
                     className="card-img rounded-2"
                     alt="..."
                   />
-                  <div className="card-img-overlay">
-                    {/* Video link */}
-                    <div className="position-absolute top-50 start-50 translate-middle">
-                      <a
-                        href={props.ytLink}
-                        className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                        data-glightbox
-                        data-gallery="video-tour"
-                      >
-                        <i className="fas fa-play" />
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
