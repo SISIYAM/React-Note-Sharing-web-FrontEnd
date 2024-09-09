@@ -1,0 +1,13 @@
+.imageBox {
+  height: 200px;
+  overflow: hidden; /* Hide overflow to maintain box size */
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.imageBox img {
+  height: 100%; /* Fill the container's height */
+  width: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the container while maintaining aspect ratio */
+}

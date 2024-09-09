@@ -15,7 +15,7 @@ function Home() {
     from BAAU and other universities. Dive into aeronautical
     engineering, avionics, and more. All resources are developed and
     presented by the Aeronautical Engineering Avionics 3rd Batch.`,
-    imageUrl: "/assets/images/aeAvioDeptImg.jpg",
+    imageUrl: "/assets/images/memories/photo_6269336802917727427_y.jpg",
     ytLink: "https://youtu.be/o0lcpDvPoP0?si=vwK9SWKaaqSyV6p8",
   };
   return (
