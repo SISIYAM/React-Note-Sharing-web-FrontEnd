@@ -23,6 +23,7 @@ function Gallery() {
       .then((files) => setImages(files))
       .catch((error) => console.error(error));
   }, []);
+  console.log(images);
   return (
     <div className="row position-relative mb-0">
       <div className="col-lg-8 text-center mx-auto position-relative">
